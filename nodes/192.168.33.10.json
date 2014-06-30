@@ -1,0 +1,19 @@
+{
+  "run_list": [
+    "recipe[apt]",
+    "recipe[apache2]",
+    "recipe[apache2::mod_php5]",
+    "recipe[apache2::mod_rewrite]",
+    "recipe[php]",
+    "recipe[php::module_mysql]",
+    "recipe[php::module_gd]",
+    "recipe[mysql::server]",
+    "recipe[msic]"
+  ],
+  "apache": {
+    "default_site_enabled": true
+  },
+  "automatic": {
+    "ipaddress": "192.168.33.10"
+  }
+}
