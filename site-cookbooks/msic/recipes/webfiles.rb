@@ -2,6 +2,7 @@
 # create the webroot
 directory "#{node.app.docroot}" do
     mode 0755
+    action :create
 end
 
 # copy in an index.html from mysite/files/default/index.html

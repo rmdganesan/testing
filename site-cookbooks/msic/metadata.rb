@@ -12,7 +12,10 @@ description       'Installs and maintains php and php modules'
 version           '1.4.6'
 
 depends 'apache2'
-
+depends "php"
+depends "apt"
+depends "openssl"
+depends "mysql"
 
 %w{ debian ubuntu centos redhat fedora scientific amazon windows oracle }.each do |os|
   supports os

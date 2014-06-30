@@ -3,6 +3,7 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+#project_name = "msic"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -21,10 +22,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host: 8085
-
+  config.vm.synced_folder "./msic", "/var/www/msic/", :mount_options => ["dmode=777", "fmode=666"]
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  #config.vm.network "private_network", ip: "192.168.33.10"
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    #config.vm.define project_name do |node|
+    config.vm.hostname = "msic.local"
+    config.vm.network :private_network, ip: "192.168.33.10"
+    config.hostmanager.aliases = [ "www.msic.local",   "msic.local" ]
+    #end
+    config.vm.provision :hostmanager
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -113,10 +122,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
             # Server name and alias(es) for Apache vhost
             :server_name => "msic.local",
-            :server_aliases => [ "www.msic.local" ],
+            :server_aliases => [ "www.msic.local",  "msic.local" ],
 
             # Document root for Apache vhost
-            :docroot => "/var/www/msic/public",
+            :docroot => "/var/www/msic",
           },
 
 	       :php => {

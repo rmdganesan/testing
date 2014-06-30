@@ -15,6 +15,8 @@ SITE
     logrotate (1.6.0)
     mysql (5.3.6)
       yum-mysql-community (>= 0.0.0)
+    openssl (2.0.0)
+      chef-sugar (>= 0.0.0)
     pacman (1.1.1)
     php (1.4.6)
       build-essential (>= 0.0.0)
@@ -38,5 +40,7 @@ DEPENDENCIES
   apache2 (>= 0)
   apt (>= 0)
   build-essential (>= 0)
+  mysql (>= 0)
+  openssl (>= 0)
   php (>= 0)
 
