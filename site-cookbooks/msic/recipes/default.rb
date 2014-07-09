@@ -27,3 +27,5 @@ end
 include_recipe "msic::configchange"
 include_recipe "msic::msicvhost"
 include_recipe "msic::htmldoc"
+include_recipe "msic::cronEmailNotification"
+include_recipe "msic::cron2ndverification"
