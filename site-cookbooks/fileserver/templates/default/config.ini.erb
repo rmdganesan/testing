@@ -1,0 +1,36 @@
+[general]
+
+;Database connection settings
+db.adapter=PDO_MYSQL
+db.host=localhost
+db.username=<%= @node[:msic][:database][:user] %>
+db.password=<%= @node[:msic][:database][:password] %>
+db.dbname=<%= @node[:msic][:database][:name] %>
+
+
+;information about the msic
+
+info.Name = <%= @node[:fileserver][:server_name] %>
+info.location = <%= @node[:fileserver][:server_name] %>
+email.smtp = localhost
+reCAPTCHA.PublicKey = 6LezA9cSAAAAAMq5YKmeyYqyGanlwbvHZglx58qc
+reCAPTCHA.PrivateKey = 6LezA9cSAAAAAOG1UsJO4iUUMS-WrKUy9Mvg5-Qc
+
+
+;MSIC related
+msic.Msic2YearCard = 215 ; Price for 2 years of MSIC
+msic.Msic4YearCard = 350 ; Price for 4 years of MSIC
+
+;MSIC card price after sep 24 2001  
+msic.newPrice.Msic2YearCard = 240 ; Price for 2 years of MSIC
+msic.newPrice.Msic4YearCard = 440 ; Price for 4 years of MSIC
+
+
+site.0.name = 'MSIC';
+site.0.Msic2YearCard = 240
+site.0.Msic4YearCard = 440
+site.0.template = default
+<% @node[:fileserver][:server_aliases].each do |a| %>
+	site.0.domains[] = <%= a %> 
+<% end %>
+

@@ -9,7 +9,15 @@ site 'http://community.opscode.com/api/v1'
  cookbook 'build-essential'
  cookbook 'openssl'
  cookbook 'php'
+ cookbook 'git'
+ cookbook 'selinux'
+ cookbook 'sudo'
+ cookbook 'vim'
+ cookbook 'postfix'
+ cookbook 'cron'
+ cookbook 'database'
  cookbook 'mysql'
+
 # cookbook 'rvm',
 #   :git => 'https://github.com/fnichol/chef-rvm'
 

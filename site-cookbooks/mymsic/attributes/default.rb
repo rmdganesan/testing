@@ -1,0 +1,10 @@
+default['mymsic']['url'] = 'https://mymsic.com.au'
+default['mymsic']['docroot'] = '/home/mymsic'
+default['mymsic']['name'] = 'mymsic'
+default['mymsic']['server_name'] = 'mymsic.local'
+default['mymsic']['adminemail'] = 'rmdganesan@gmail.com'
+default['mymsic']['customercareemail'] = 'rmdganesan@gmail.com'
+default['mymsic']['server_aliases'] = [ "www.mymsic.local",  "mymsic.local", "mymsic.dev.local" ]
+default['mymsic']['database']['name'] = 'mymsic'
+default['mymsic']['database']['user'] = 'mymsicuser'
+default['mymsic']['database']['password'] = 'mymsicpass'

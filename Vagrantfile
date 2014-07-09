@@ -101,6 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      chef.data_bags_path = "./data_bags"
      chef.add_recipe "apt"
      chef.add_recipe "apache2"
+     chef.add_recipe "database"
      chef.add_recipe "mysql::server"
      chef.add_recipe "php"
      chef.add_recipe "php::module_apc"
@@ -108,7 +109,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      chef.add_recipe "php::module_mysql"
      chef.add_recipe "apache2::mod_php5"
      chef.add_recipe "apache2::mod_rewrite"
-     chef.add_recipe "msic"     
+     chef.add_recipe "msic"
+     chef.add_recipe "fileserver"
+     chef.add_recipe "mymsic"     
   #   chef.add_role "web"
   #
   #   # You may also specify custom JSON attributes:
@@ -127,7 +130,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             # Document root for Apache vhost
             :docroot => "/var/www/msic",
           },
-
+         :mysql => {
+            :server_root_password => 'ilikerandompasswords',
+            :server_debian_password => nil,
+            :server_repl_password => nil,
+         },
 	       :php => {
             :install_method => "source",
             :configure_options => [
@@ -167,7 +174,41 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 "display_errors" => "On"
             },
             :version => "5.5.6"
-        }
+        },
+        :msic => {
+            :url => 'https://msic.com.au',
+            :docroot => '/home/msic',
+            :name => 'msic',
+            :server_name => 'msic.local',
+            :adminemail => 'mganesan@identiv.com',
+            :server_aliases => [ "www.msic.local",  "msic.local", "msic.dev.local" ],
+            :database => {
+              :name => 'msic',
+              :user => 'msicuser',
+              :password => 'msicpassword'
+            }
+          },
+        :fileserver => {
+            :url => 'https://local.fileserver',
+            :docroot => '/home/fileserver',
+            :name => 'fileserver',
+            :server_name => 'fileserver.local',
+            :adminemail => 'mganesan@identiv.com',
+            :server_aliases => [ "www.fileserver.local",  "fileserver.local", "fileserver.dev.local" ]
+          },
+        :mymsic => {
+            :url => 'https://mymsic.com.au',
+            :docroot => '/home/mymsic',
+            :name => 'mymsic',
+            :server_name => 'mymsic.local',
+            :adminemail => 'mganesan@identiv.com',
+            :server_aliases => [ "www.mymsic.local",  "mymsic.local", "mymsic.dev.local" ],
+            :database => {
+              :name => 'mymsic',
+              :user => 'mymsicuser',
+              :password => 'mymsicpassword'
+            }
+          }
      }
    end
 

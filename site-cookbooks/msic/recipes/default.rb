@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: msic
+# Cookbook Name:: demo1
 # Recipe:: default
 #
 # Copyright 2014, YOUR_COMPANY_NAME
@@ -8,29 +8,22 @@
 #
 include_recipe "apache2"
 include_recipe "apache2::mod_php5"
-include_recipe "msic::webfiles"
-#include_recipe "msic::vhost"
-# call "web_app" from the apache recipe definition to set up a new website
-#web_app "msic" do
-    # where the website will live
-#   docroot "#{node.app.docroot}"
+include_recipe "git"
 
-   # apache virtualhost definition
-#   template "msic.conf.erb"
-#end
 
-app_name = "#{node['app']['name']}"
-
-# Enable vhost
-web_app app_name do
-  server_name node['app']['server_name']
-  server_aliases node['app']['server_aliases']
-  docroot node['app']['docroot']
-  log_dir node['apache']['log_dir']
-  template node['app']['name']+".conf.erb"
+directory "#{node[:msic][:docroot]}" do
+  owner "vagrant"
+  group "vagrant"
+  mode "0755"
+  action :create
+  recursive true
 end
-
-# Disable default vhost config
-apache_site "000-default" do
-  enable true
+git "#{node[:msic][:docroot]}" do
+   repository "https://github.com/mganesan/msic.git"
+   reference "master"
+   action :sync
 end
+#include_recipe "msic::dbupdate"
+include_recipe "msic::configchange"
+include_recipe "msic::msicvhost"
+include_recipe "msic::htmldoc"

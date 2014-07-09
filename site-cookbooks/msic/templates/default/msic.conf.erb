@@ -1,9 +1,10 @@
 <VirtualHost *:80>
-  ServerName <%= @params[:server_name] %>
-  ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
-  DocumentRoot <%= @params[:docroot] %>
+  ServerName <%= @node[:msic][:server_name] %>
+  ServerAlias <% @node[:msic][:server_aliases].each do |a| %><%= a %> <% end %>
+  DocumentRoot <%= @node[:msic][:docroot] %>/public
+  ServerAdmin <%= @node[:msic][:adminemail] %>
 
-  <Directory <%= @params[:docroot] %>>
+  <Directory <%= @node[:msic][:docroot] %>/public >
     EnableSendfile Off
     Options FollowSymLinks
     AllowOverride <%= [@params[:allow_override] || "All" ].flatten.join " " %>
@@ -23,17 +24,17 @@
   php_value error_log <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-phperrors.log
 
   LogLevel info
-  ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
-  CustomLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-access.log combined
+  ErrorLog <%= @node[:apache][:log_dir] %>/<%= @node[:msic][:name] %>-error.log
+  CustomLog <%= @node[:apache][:log_dir] %>/<%= @node[:msic][:name] %>-access.log combined
 </VirtualHost>
 
 <IfModule mod_ssl.c>
 <VirtualHost _default_:443>
-  ServerName <%= @params[:server_name] %>
-  ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
-  DocumentRoot <%= @params[:docroot] %>
+  ServerName <%= @node[:msic][:server_name] %>
+  ServerAlias <% @node[:msic][:server_aliases].each do |a| %><%= a %> <% end %>
+  DocumentRoot <%= @node[:msic][:docroot] %>/public
 
-  <Directory <%= @params[:docroot] %>>
+  <Directory <%= @node[:msic][:docroot] %>/public > 
     EnableSendfile Off
     Options FollowSymLinks
     AllowOverride <%= [@params[:allow_override] || "All" ].flatten.join " " %>
